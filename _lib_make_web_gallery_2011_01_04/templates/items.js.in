@@ -1,0 +1,13 @@
+// Load items to Www-Browser's memory
+
+%(COMMENTED_AUTO_GENERATED_COMMENT)s
+
+(function() {
+    load_namespace_uri = '2010-01-04.MakeWebGallery'
+    load = window[load_namespace_uri + ':load']
+    
+    if(load) {
+%(elem_list)s
+    }
+})()
+

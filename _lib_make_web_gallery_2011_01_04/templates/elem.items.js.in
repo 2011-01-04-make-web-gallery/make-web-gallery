@@ -1,0 +1,5 @@
+        load({
+            'label': %(quoted_label)s,
+            'img_basename': %(quoted_img_basename)s,
+        })
+

@@ -1,0 +1,4 @@
+                <html:a href=%(quoted_img_basename)s>
+                    <html:img class="GalleryIcon" src=%(quoted_img_basename)s alt=%(quoted_label)s />
+                </html:a>
+
