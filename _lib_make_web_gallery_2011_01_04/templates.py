@@ -40,7 +40,7 @@ ITEMS_JS_IN_ELEMENT_FILENAME = os.path.join(
 )
 ITEMS_JS_IN_ELEMENT_JOINER = '\n'
 
-STATIC_HTML_BASENAME = 'static_%s.xhtml'
+STATIC_HTML_BASENAME = 'static_%s.xml'
 STATIC_HTML_IN_FILENAME = os.path.join(
     TEMPLATES_DIR,
     '%s.in' % (STATIC_HTML_BASENAME),
