@@ -14,7 +14,7 @@
 	                margin: 10px;
 	                height: 150px;
 	                border: 1px solid;
-	                vartical-align: middle;
+	                vertical-align: middle;
 	            }
             ]]>
         </html:style>
