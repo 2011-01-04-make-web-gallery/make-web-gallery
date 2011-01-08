@@ -190,7 +190,7 @@ def make_web_gallery(source_dir, target_dir):
     except OSError as e:
         raise AppError('Can not list source directory: OSError: %s' % e)
     else:
-        img_list = list(filter(img_filter, raw_img_list))
+        img_list = sorted(filter(img_filter, raw_img_list))
         
         if img_list:
             if not os.path.isdir(target_dir):
