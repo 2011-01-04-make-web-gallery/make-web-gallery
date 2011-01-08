@@ -8,14 +8,14 @@
         <html:title>Gallery Page</html:title>
         <html:style>
             <![CDATA[
-	            @namespace html "http://www.w3.org/1999/xhtml";
-	            
-	            html|*.GalleryIcon {
-	                margin: 10px;
-	                height: 150px;
-	                border: 1px solid;
-	                vertical-align: middle;
-	            }
+                @namespace html "http://www.w3.org/1999/xhtml";
+                
+                html|*.GalleryIcon {
+                    margin: 10px;
+                    height: 150px;
+                    border: 1px solid;
+                    vertical-align: middle;
+                }
             ]]>
         </html:style>
     </html:head>
