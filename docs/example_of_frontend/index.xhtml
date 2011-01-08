@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html:html xmlns:html="http://www.w3.org/1999/xhtml">
+    <html:head>
+        <html:title>Как я играл в World of Warcraft</html:title>
+        <html:style>
+            <![CDATA[
+                @namespace html "http://www.w3.org/1999/xhtml";
+                
+                html|*.MainFrame {
+                    margin: auto;
+                    max-width: 1000px;
+                }
+                
+                html|*.GalleryIcon {
+                    margin: 10px;
+                    height: 150px;
+                    border: 1px solid;
+                    vertical-align: middle;
+                }
+            ]]>
+        </html:style>
+        <html:script src="main.js" />
+        
+        <!-- BEGIN load path/to/Screenshots000 /-->
+        <html:script><![CDATA[
+            (function() {
+                var prepare_load = window['2011-01-04.MakeWebGallery:prepare_load']
+                
+                if(prepare_load) {
+                    prepare_load({dir: 'path/to/Screenshots000'})
+                }
+            })()
+        ]]></html:script>
+        <html:script src="path/to/Screenshots000/items.js" />
+        <!-- END_OF load path/to/Screenshots000 /-->
+        
+        <!-- BEGIN load path/to/Screenshots001 /-->
+        <html:script><![CDATA[
+            (function() {
+                var prepare_load = window['2011-01-04.MakeWebGallery:prepare_load']
+                
+                if(prepare_load) {
+                    prepare_load({dir: 'path/to/Screenshots001'})
+                }
+            })()
+        ]]></html:script>
+        <html:script src="path/to/Screenshots001/items.js" />
+        <!-- END_OF load path/to/Screenshots001 /-->
+        
+        <!-- BEGIN load path/to/Screenshots002 /-->
+        <html:script><![CDATA[
+            (function() {
+                var prepare_load = window['2011-01-04.MakeWebGallery:prepare_load']
+                
+                if(prepare_load) {
+                    prepare_load({dir: 'path/to/Screenshots002'})
+                }
+            })()
+        ]]></html:script>
+        <html:script src="path/to/Screenshots002/items.js" />
+        <!-- END_OF load path/to/Screenshots002 /-->
+        
+    </html:head>
+    <html:body>
+        <html:div class="MainFrame">
+            <html:h1>Как я играл в World of Warcraft</html:h1>
+            <html:p>Картинки представленны в обратном хронологическом порядке</html:p>
+            <html:div id="2011-01-04.MakeWebGallery:no_script">
+                
+                <!-- BEGIN static-html (no-script mode) /-->
+                <html:p>Альтернативный no-script контент (в прямом хронологическом порядке):</html:p>
+                <html:ul>
+                    <html:li><html:a href="path/to/Screenshots000/static_0.xhtml">Screenshots000</html:a></html:li>
+                    <html:li><html:a href="path/to/Screenshots001/static_0.xhtml">Screenshots001</html:a></html:li>
+                    <html:li><html:a href="path/to/Screenshots002/static_0.xhtml">Screenshots002</html:a></html:li>
+                </html:ul>
+                <!-- END_OF static-html (no-script mode) /-->
+                
+            </html:div>
+        </html:div>
+    </html:body>
+</html:html>
+
