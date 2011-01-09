@@ -23,7 +23,7 @@
         </html:style>
         <html:script src="main.js" />
         
-        <!-- BEGIN load path/to/Screenshots000 /-->
+        <!-- BEGIN load dynamic part /-->
         <html:script>
             <![CDATA[
                 (function() {
@@ -36,9 +36,9 @@
             ]]>
         </html:script>
         <html:script src="path/to/Screenshots000/items.js" />
-        <!-- END_OF load path/to/Screenshots000 /-->
+        <!-- END_OF load dynamic part /-->
         
-        <!-- BEGIN load path/to/Screenshots001 /-->
+        <!-- BEGIN load dynamic part /-->
         <html:script>
             <![CDATA[
                 (function() {
@@ -51,9 +51,9 @@
             ]]>
         </html:script>
         <html:script src="path/to/Screenshots001/items.js" />
-        <!-- END_OF load path/to/Screenshots001 /-->
+        <!-- END_OF load dynamic part /-->
         
-        <!-- BEGIN load path/to/Screenshots002 /-->
+        <!-- BEGIN load dynamic part /-->
         <html:script>
             <![CDATA[
                 (function() {
@@ -66,7 +66,7 @@
             ]]>
         </html:script>
         <html:script src="path/to/Screenshots002/items.js" />
-        <!-- END_OF load path/to/Screenshots002 /-->
+        <!-- END_OF load dynamic part /-->
         
     </html:head>
     <html:body>
