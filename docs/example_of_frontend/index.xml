@@ -72,11 +72,11 @@
     <html:body>
         <html:div class="MainFrame">
             <html:h1>Здесь мои любимые фотографии</html:h1>
-            <html:p>Картинки представленны в обратном хронологическом порядке</html:p>
+            <html:p>(В обратном порядке)</html:p>
             <html:div id="2011-01-04.MakeWebGallery:no_script">
                 
                 <!-- BEGIN static-html (no-script mode) /-->
-                <html:p>Альтернативный no-script контент (в прямом хронологическом порядке):</html:p>
+                <html:p>Альтернативный контент:</html:p>
                 <html:ul>
                     <html:li><html:a href="path/to/Screenshots000/static_0.xml">Screenshots000</html:a></html:li>
                     <html:li><html:a href="path/to/Screenshots001/static_0.xml">Screenshots001</html:a></html:li>
