@@ -3,7 +3,7 @@
 
 <html:html xmlns:html="http://www.w3.org/1999/xhtml">
     <html:head>
-        <html:title>Как я играл в World of Warcraft</html:title>
+        <html:title>Здесь мои любимые фотографии</html:title>
         <html:style>
             <![CDATA[
                 @namespace html "http://www.w3.org/1999/xhtml";
@@ -71,7 +71,7 @@
     </html:head>
     <html:body>
         <html:div class="MainFrame">
-            <html:h1>Как я играл в World of Warcraft</html:h1>
+            <html:h1>Здесь мои любимые фотографии</html:h1>
             <html:p>Картинки представленны в обратном хронологическом порядке</html:p>
             <html:div id="2011-01-04.MakeWebGallery:no_script">
                 
