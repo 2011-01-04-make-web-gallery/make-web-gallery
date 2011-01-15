@@ -121,21 +121,20 @@ def group_by_pages(rich_list, page_len):
     while True:
         page_no = next(page_counter)
         group = []
-        
-        for i in range(page_len):
-            try:
-                item = next(rich_list_iter)
-            except StopIteration:
-                break
+        try:
+            for i in range(page_len):
+                try:
+                    item = next(rich_list_iter)
+                except StopIteration:
+                    break
+                else:
+                    group.append(item)
             else:
-                group.append(item)
-        else:
-            groups.append([page_no, group])
+                continue
             
-            continue
-        groups.append([page_no, group])
-        
-        break
+            break
+        finally:
+            groups.append([page_no, group])
     
     return groups
 
