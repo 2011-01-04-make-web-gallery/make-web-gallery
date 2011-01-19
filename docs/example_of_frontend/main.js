@@ -26,7 +26,7 @@
     function on_items_load(kwargs) {
         var item = {}
         
-        item.id = items.length
+        item.id = items.length + 1
         
         if(kwargs.img_basename) {
             item.img = sel_dir + '/' + kwargs.img_basename
