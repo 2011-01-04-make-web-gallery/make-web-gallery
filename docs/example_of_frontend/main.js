@@ -26,6 +26,8 @@
     function on_items_load(kwargs) {
         var item = {}
         
+        item.id = items.length
+        
         if(kwargs.img_basename) {
             item.img = sel_dir + '/' + kwargs.img_basename
         }
@@ -39,10 +41,20 @@
         items.unshift(item)
     }
     
+    function get_real_item_id(i) {
+        var item = items[i]
+        
+        if(item) {
+            return item.id
+        }
+    }
+    
     function create_gallery_page(begin, end) {
         var text = document.createElementNS(html_ns, 'html:h2')
         text.appendChild(
-            document.createTextNode('Текущая выбранная страница: [' + begin + ':' + end + ']')
+            document.createTextNode(
+                'Текущая выбранная страница: [ ' + get_real_item_id(begin) + ' : ... ]'
+            )
         )
         
         var icons = document.createElementNS(html_ns, 'html:div')
@@ -61,10 +73,11 @@
             }
             
             var img = document.createElementNS(html_ns, 'html:img')
+            var img_name = '[' + item.id + ']: ' + item.label
             
-            img.alt = item.label
+            img.alt = img_name
             img.src = item.img
-            img.title = item.label
+            img.title = img_name
             img.className = 'GalleryIcon'
             img.addEventListener('click', function(event) { on_click() }, false)
             
@@ -111,7 +124,7 @@
         function create_button(begin, end) {
             var button = document.createElementNS(html_ns, 'html:input')
             button.type = 'button'
-            button.value = begin + ':' + end
+            button.value = '[ ' + get_real_item_id(begin) + ' : ... ]'
             button.addEventListener('click', function(event) { switch_gallery_page(begin, end) }, false)
             
             return button
