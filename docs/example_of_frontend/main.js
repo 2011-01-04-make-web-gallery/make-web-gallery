@@ -39,10 +39,16 @@
         items.unshift(item)
     }
     
+    function reversed_int(value) {
+        return -1 - value
+    }
+    
     function create_gallery_page(begin, end) {
         var text = document.createElementNS(html_ns, 'html:h2')
         text.appendChild(
-            document.createTextNode('Текущая выбранная страница: [' + begin + ':' + end + ']')
+            document.createTextNode(
+                'Текущая выбранная страница: [' + reversed_int(begin) + ':' + reversed_int(end) + ']'
+            )
         )
         
         var icons = document.createElementNS(html_ns, 'html:div')
@@ -111,7 +117,7 @@
         function create_button(begin, end) {
             var button = document.createElementNS(html_ns, 'html:input')
             button.type = 'button'
-            button.value = begin + ':' + end
+            button.value = '[' + reversed_int(begin) + ':' + reversed_int(end) + ']'
             button.addEventListener('click', function(event) { switch_gallery_page(begin, end) }, false)
             
             return button
