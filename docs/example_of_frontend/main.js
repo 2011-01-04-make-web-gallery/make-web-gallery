@@ -40,20 +40,26 @@
     }
     
     function reversed_int(value) {
-        return -1 - value
+        reversed = items.length - value - 1
+        
+        if(reversed >= 0) {
+            return reversed
+        } else {
+            return 0
+        }
     }
     
     function create_gallery_page(begin, end) {
         var text = document.createElementNS(html_ns, 'html:h2')
         text.appendChild(
             document.createTextNode(
-                'Текущая выбранная страница: [' + reversed_int(begin) + ':' + reversed_int(end) + ']'
+                'Текущая выбранная страница: [ ' + reversed_int(begin) + ' : ... ]'
             )
         )
         
         var icons = document.createElementNS(html_ns, 'html:div')
         
-        function create_icon(item) {
+        function create_icon(i, item) {
             function on_click() {
                 preview_window = window.open(item.img, '_blank')
                 
@@ -67,10 +73,11 @@
             }
             
             var img = document.createElementNS(html_ns, 'html:img')
+            var img_name = '[' + reversed_int(i) + ']: ' + item.label
             
-            img.alt = item.label
+            img.alt = img_name
             img.src = item.img
-            img.title = item.label
+            img.title = img_name
             img.className = 'GalleryIcon'
             img.addEventListener('click', function(event) { on_click() }, false)
             
@@ -81,7 +88,7 @@
             var item = items[i]
             
             if(item) {
-                var icon = create_icon(item)
+                var icon = create_icon(i, item)
                 
                 icons.appendChild(icon)
                 icons.appendChild(document.createTextNode(' '))
@@ -117,7 +124,7 @@
         function create_button(begin, end) {
             var button = document.createElementNS(html_ns, 'html:input')
             button.type = 'button'
-            button.value = '[' + reversed_int(begin) + ':' + reversed_int(end) + ']'
+            button.value = '[ ' + reversed_int(begin) + ' : ... ]'
             button.addEventListener('click', function(event) { switch_gallery_page(begin, end) }, false)
             
             return button
