@@ -26,6 +26,8 @@
     function on_items_load(kwargs) {
         var item = {}
         
+        item.id = items.length
+        
         if(kwargs.img_basename) {
             item.img = sel_dir + '/' + kwargs.img_basename
         }
@@ -39,13 +41,11 @@
         items.unshift(item)
     }
     
-    function reversed_int(value) {
-        reversed = items.length - value - 1
+    function get_real_item_id(i) {
+        var item = items[i]
         
-        if(reversed >= 0) {
-            return reversed
-        } else {
-            return 0
+        if(item) {
+            return item.id
         }
     }
     
@@ -53,13 +53,13 @@
         var text = document.createElementNS(html_ns, 'html:h2')
         text.appendChild(
             document.createTextNode(
-                'Текущая выбранная страница: [ ' + reversed_int(begin) + ' : ... ]'
+                'Текущая выбранная страница: [ ' + get_real_item_id(begin) + ' : ... ]'
             )
         )
         
         var icons = document.createElementNS(html_ns, 'html:div')
         
-        function create_icon(i, item) {
+        function create_icon(item) {
             function on_click() {
                 preview_window = window.open(item.img, '_blank')
                 
@@ -73,7 +73,7 @@
             }
             
             var img = document.createElementNS(html_ns, 'html:img')
-            var img_name = '[' + reversed_int(i) + ']: ' + item.label
+            var img_name = '[' + item.id + ']: ' + item.label
             
             img.alt = img_name
             img.src = item.img
@@ -88,7 +88,7 @@
             var item = items[i]
             
             if(item) {
-                var icon = create_icon(i, item)
+                var icon = create_icon(item)
                 
                 icons.appendChild(icon)
                 icons.appendChild(document.createTextNode(' '))
@@ -124,7 +124,7 @@
         function create_button(begin, end) {
             var button = document.createElementNS(html_ns, 'html:input')
             button.type = 'button'
-            button.value = '[ ' + reversed_int(begin) + ' : ... ]'
+            button.value = '[ ' + get_real_item_id(begin) + ' : ... ]'
             button.addEventListener('click', function(event) { switch_gallery_page(begin, end) }, false)
             
             return button
