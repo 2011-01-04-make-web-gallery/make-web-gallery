@@ -14,10 +14,12 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with "MakeWebGallery".  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, os, os.path, itertools
+import sys, os, os.path, itertools, json
 
 from .templates import (
     AUTO_GENERATED_COMMENT,
+    ITEMS_JSON_BASENAME,
+    ITEMS_JSON_TYPE,
     ITEMS_JS_BASENAME,
     ITEMS_JS_IN_FILENAME,
     ITEMS_JS_IN_ELEMENT_FILENAME,
@@ -54,6 +56,14 @@ def gen_rich_list(img_list):
     ]
     
     return rich_list
+
+def gen_items_json_obj(rich_list):
+    obj = {
+        'type': ITEMS_JSON_TYPE,
+        'content': rich_list,
+    }
+    
+    return obj
 
 def js_comment(lines):
     return '\n'.join([
@@ -201,6 +211,11 @@ def make_web_gallery(source_dir, target_dir):
                     raise AppError('Can not make target directory: OSError: %s' % e)
             
             rich_list = gen_rich_list(img_list)
+            
+            items_json_filename = os.path.join(target_dir, ITEMS_JSON_BASENAME)
+            items_json_obj = gen_items_json_obj(rich_list)
+            with open(items_json_filename, 'w') as fd:
+                json.dump(items_json_obj, fd)
             
             items_js_filename = os.path.join(target_dir, ITEMS_JS_BASENAME)
             items_js_value = gen_items_js_value(rich_list)

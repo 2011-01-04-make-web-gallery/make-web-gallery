@@ -30,6 +30,9 @@ AUTO_GENERATED_COMMENT = [
     'changes will be overwritten the next time the utility is run.',
 ]
 
+ITEMS_JSON_BASENAME = 'items.json'
+ITEMS_JSON_TYPE = '/2011/01/04/MakeWebGallery/2011/01/20/items_json/rich_list'
+
 ITEMS_JS_BASENAME = 'items.js'
 ITEMS_JS_IN_FILENAME = os.path.join(
     TEMPLATES_DIR,
