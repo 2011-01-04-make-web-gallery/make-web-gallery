@@ -4,12 +4,16 @@
     var html_ns = 'http://www.w3.org/1999/xhtml'
     
     function debug_log(value) {
-        document.body.appendChild(
-            document.createTextNode('⚠ Debug Log: ' + value)
-        )
-        document.body.appendChild(
-            document.createElementNS(html_ns, 'html:br')
-        )
+        var pre = document.getElementById('debug_log')
+        
+        if(pre) {
+            pre.appendChild(
+                document.createTextNode('⚠ Debug Log: ' + value)
+            )
+            pre.appendChild(
+                document.createElementNS(html_ns, 'html:br')
+            )
+        }
     }
     
     function Gallery() {

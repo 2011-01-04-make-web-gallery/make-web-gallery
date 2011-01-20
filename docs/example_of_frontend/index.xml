@@ -86,6 +86,7 @@
                 
             </html:div>
         </html:div>
+        <html:pre id="debug_log" />
     </html:body>
 </html:html>
 
