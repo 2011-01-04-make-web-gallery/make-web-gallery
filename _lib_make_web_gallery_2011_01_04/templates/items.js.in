@@ -3,8 +3,16 @@
 %(COMMENTED_AUTO_GENERATED_COMMENT)s
 
 (function() {
-    load_namespace_uri = '2011-01-04.MakeWebGallery'
-    load = window[load_namespace_uri + ':load']
+    var TRY_LEGACY = true
+    
+    var items_js_ns = '/2011/01/04/MakeWebGallery/2011/01/20/items_js'
+    var load = window[items_js_ns + '/load']
+    
+    if(TRY_LEGACY && !load) {
+        // for backward compatible only
+        
+        load = window['2011-01-04.MakeWebGallery:load']
+    }
     
     if(load) {
 %(elem_list)s
