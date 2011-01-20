@@ -35,6 +35,8 @@ class AppError(Exception):
     pass
 
 def img_filter(filename):
+    assert not isinstance(filename, bytes)
+    
     if filename and (
                 filename.endswith('.png') or
                 filename.endswith('.jpg')
@@ -44,13 +46,12 @@ def img_filter(filename):
         return False
 
 def gen_rich_list(img_list):
-    rich_list = []
-    
-    for img_basename in img_list:
-        rich_list.append({
+    rich_list = [
+        {
             'label': img_basename.rsplit('.', 1)[0],
             'img_basename': img_basename,
-        })
+        } for img_basename in img_list
+    ]
     
     return rich_list
 
