@@ -222,7 +222,7 @@
     }
     
     function main() {
-        var gallery_target_elem = document.getElementById('2011-01-04.MakeWebGallery:no_script')
+        var gallery_target_elem = document.getElementById('/2011/01/20/web_gallery/2011/01/20/no_script')
         
         if(gallery_target_elem) {
             var gallery = create_gallery()

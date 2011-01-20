@@ -73,7 +73,7 @@
         <html:div class="MainFrame">
             <html:h1>Здесь мои любимые фотографии</html:h1>
             <html:p>(В обратном порядке)</html:p>
-            <html:div id="2011-01-04.MakeWebGallery:no_script">
+            <html:div id="/2011/01/20/web_gallery/2011/01/20/no_script">
                 
                 <!-- BEGIN static-html (no-script mode) /-->
                 <html:p>Альтернативный контент:</html:p>
