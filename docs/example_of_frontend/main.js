@@ -1,4 +1,6 @@
 (function() {
+    var TRY_LEGACY = true
+    
     var html_ns = 'http://www.w3.org/1999/xhtml'
     
     function debug_log(value) {
@@ -229,8 +231,14 @@
         }
     }
     
-    window['2011-01-04.MakeWebGallery:prepare_load'] = on_items_prepare_load
-    window['2011-01-04.MakeWebGallery:load'] = on_items_load
+    window['/2011/01/04/MakeWebGallery/2011/01/20/items_js/prepare_load'] = on_items_prepare_load
+    window['/2011/01/04/MakeWebGallery/2011/01/20/items_js/load'] = on_items_load
+    if(TRY_LEGACY) {
+        // for backward compatible only
+        
+        window['2011-01-04.MakeWebGallery:prepare_load'] = on_items_prepare_load
+        window['2011-01-04.MakeWebGallery:load'] = on_items_load
+    }
     addEventListener('load', function(event) { main() }, false)
 })()
 

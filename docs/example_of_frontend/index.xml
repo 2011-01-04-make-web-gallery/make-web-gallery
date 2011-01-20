@@ -27,7 +27,7 @@
         <html:script>
             <![CDATA[
                 (function() {
-                    var prepare_load = window['2011-01-04.MakeWebGallery:prepare_load']
+                    var prepare_load = window['/2011/01/04/MakeWebGallery/2011/01/20/items_js/prepare_load']
                     
                     if(prepare_load) {
                         prepare_load({dir: 'path/to/Screenshots000'})
@@ -42,7 +42,7 @@
         <html:script>
             <![CDATA[
                 (function() {
-                    var prepare_load = window['2011-01-04.MakeWebGallery:prepare_load']
+                    var prepare_load = window['/2011/01/04/MakeWebGallery/2011/01/20/items_js/prepare_load']
                     
                     if(prepare_load) {
                         prepare_load({dir: 'path/to/Screenshots001'})
@@ -57,7 +57,7 @@
         <html:script>
             <![CDATA[
                 (function() {
-                    var prepare_load = window['2011-01-04.MakeWebGallery:prepare_load']
+                    var prepare_load = window['/2011/01/04/MakeWebGallery/2011/01/20/items_js/prepare_load']
                     
                     if(prepare_load) {
                         prepare_load({dir: 'path/to/Screenshots002'})
