@@ -252,7 +252,6 @@
             img.alt = 'Loading...'
             
             var panel = document.createElementNS(html_ns, 'html:div')
-            panel.style.background = 'rgb(255,255,255)'
             panel.style.padding = '30px'
             panel.style.textAlign = 'center'
             
