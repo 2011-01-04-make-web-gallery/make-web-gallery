@@ -242,7 +242,7 @@
     function main() {
         var gallery_target_elem = document.getElementById('/2011/01/20/web_gallery/2011/01/20/no_script')
         
-        if(gallery_target_elem) {
+        if(gallery_target_elem && gallery_target_elem.parentNode) {
             gallery.create()
             
             gallery_target_elem.parentNode.replaceChild(gallery.node, gallery_target_elem)
