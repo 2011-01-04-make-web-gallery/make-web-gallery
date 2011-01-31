@@ -241,97 +241,104 @@
         }
     }
     
-    function GalleryLoader() {
-        this.init = function(params) {
-            this._params = params
+    function GalleryLoader() {}
+    
+    function new_gallery_loader(params) {
+        var gallery_loader = new GalleryLoader
+        gallery_loader.init(params)
+        
+        return gallery_loader
+    }
+    
+    GalleryLoader.prototype.init = function(params) {
+        this._params = params
+    }
+    
+    GalleryLoader.prototype._create_ajax_loading = function() {
+        var img = document.createElementNS(html_ns, 'html:img')
+        img.src = 'ajax-loader.gif'
+        img.alt = 'Loading...'
+        
+        var panel = document.createElementNS(html_ns, 'html:div')
+        panel.style.padding = '30px'
+        panel.style.textAlign = 'center'
+        
+        panel.appendChild(img)
+        
+        return panel
+    }
+    
+    GalleryLoader.prototype._run_complete = function() {
+        var gallery = new Gallery()
+        
+        for(var i = 0; i < this._params.load_items_json.length; ++i) {
+            var load_items_json_param = this._params.load_items_json[i]
+            var items_json = this._loaded_items_json[load_items_json_param]
+            
+            if(items_json.type == '/2011/01/04/MakeWebGallery/2011/01/20/items_json/rich_list') {
+                for(var ii = 0; ii < items_json.content.length; ++ii) {
+                    gallery.items_load_init({
+                        dir: load_items_json_param,
+                        img_basename: items_json.content[ii].img_basename,
+                        label: items_json.content[ii].img_basename.label,
+                    })
+                }
+            }
         }
         
-        this._create_ajax_loading = function() {
-            var img = document.createElementNS(html_ns, 'html:img')
-            img.src = 'ajax-loader.gif'
-            img.alt = 'Loading...'
-            
-            var panel = document.createElementNS(html_ns, 'html:div')
-            panel.style.padding = '30px'
-            panel.style.textAlign = 'center'
-            
-            panel.appendChild(img)
-            
-            return panel
+        if(this._target && this._target.parentNode) {
+            gallery.create()
+            this._target.parentNode.replaceChild(gallery.node, this._target)
+            this._target = gallery
         }
+    }
+    
+    GalleryLoader.prototype._items_json_request = function(load_items_json_param) {
+        var self = this
         
-        this._run_complete = function() {
-            var gallery = new Gallery()
+        var url = load_items_json_param + '/items.json'
+        var req = new XMLHttpRequest()
+        
+        function transfer_complete() {
+            if(!req.status || req.status == 200) {
+                var items_json = JSON.parse(req.responseText)
+                
+                self._loaded_items_json[load_items_json_param] = items_json
+                ++self._loaded_items_json_size
+                
+                if(self._loaded_items_json_size == self._params.load_items_json.length) {
+                    self._run_complete()
+                }
+            } else {
+                debug_log('Transfer Failed Status: ' + url + ': ' + req.status)
+            }
+        }
+        req.addEventListener(
+            'load', function(event) { transfer_complete() }, false)
+        req.addEventListener(
+            'error', function(event) { debug_log('Transfer Failed: ' + url) }, false)
+        req.addEventListener(
+            'abort', function(event) { debug_log('Transfer Canceled: ' + url) }, false)
+        req.open('GET', url)
+        req.send()
+    }
+    
+    GalleryLoader.prototype.run = function() {
+        this._target = document.getElementById(this._params.target_id)
+        
+        if(this._target && this._target.parentNode) {
+            var ajax_loading = this._create_ajax_loading()
+            
+            this._target.parentNode.replaceChild(ajax_loading, this._target)
+            this._target = ajax_loading
+            
+            this._loaded_items_json = {}
+            this._loaded_items_json_size = 0
             
             for(var i = 0; i < this._params.load_items_json.length; ++i) {
                 var load_items_json_param = this._params.load_items_json[i]
-                var items_json = this._loaded_items_json[load_items_json_param]
                 
-                if(items_json.type == '/2011/01/04/MakeWebGallery/2011/01/20/items_json/rich_list') {
-                    for(var ii = 0; ii < items_json.content.length; ++ii) {
-                        gallery.items_load_init({
-                            dir: load_items_json_param,
-                            img_basename: items_json.content[ii].img_basename,
-                            label: items_json.content[ii].img_basename.label,
-                        })
-                    }
-                }
-            }
-            
-            if(this._target && this._target.parentNode) {
-                gallery.create()
-                this._target.parentNode.replaceChild(gallery.node, this._target)
-                this._target = gallery
-            }
-        }
-        
-        this._items_json_request = function(load_items_json_param) {
-            var self = this
-            
-            var url = load_items_json_param + '/items.json'
-            var req = new XMLHttpRequest()
-            
-            function transfer_complete() {
-                if(!req.status || req.status == 200) {
-                    var items_json = JSON.parse(req.responseText)
-                    
-                    self._loaded_items_json[load_items_json_param] = items_json
-                    ++self._loaded_items_json_size
-                    
-                    if(self._loaded_items_json_size == self._params.load_items_json.length) {
-                        self._run_complete()
-                    }
-                } else {
-                    debug_log('Transfer Failed Status: ' + url + ': ' + req.status)
-                }
-            }
-            req.addEventListener(
-                'load', function(event) { transfer_complete() }, false)
-            req.addEventListener(
-                'error', function(event) { debug_log('Transfer Failed: ' + url) }, false)
-            req.addEventListener(
-                'abort', function(event) { debug_log('Transfer Canceled: ' + url) }, false)
-            req.open('GET', url)
-            req.send()
-        }
-        
-        this.run = function() {
-            this._target = document.getElementById(this._params.target_id)
-            
-            if(this._target && this._target.parentNode) {
-                var ajax_loading = this._create_ajax_loading()
-                
-                this._target.parentNode.replaceChild(ajax_loading, this._target)
-                this._target = ajax_loading
-                
-                this._loaded_items_json = {}
-                this._loaded_items_json_size = 0
-                
-                for(var i = 0; i < this._params.load_items_json.length; ++i) {
-                    var load_items_json_param = this._params.load_items_json[i]
-                    
-                    this._items_json_request(load_items_json_param)
-                }
+                this._items_json_request(load_items_json_param)
             }
         }
     }
@@ -372,9 +379,8 @@
         var gallery_params_list = get_gallery_params_list()
         
         for(var i = 0; i < gallery_params_list.length; ++i) {
-            var gallery_loader = new GalleryLoader()
+            var gallery_loader = new_gallery_loader(gallery_params_list[i])
             
-            gallery_loader.init(gallery_params_list[i])
             gallery_loader.run()
         }
     }
