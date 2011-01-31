@@ -16,6 +16,41 @@
         }
     }
     
+    var func_tools = {
+        args_array: function(raw_args) {
+            var args = []
+        
+            for(var i = 0; i < raw_args.length; ++i) {
+                args.push(raw_args[i])
+            }
+            
+            return args
+        },
+        func_bind: function(func, this_arg) {
+            var args_array = this.args_array
+            var args = args_array(arguments).slice(2)
+            
+            if(func.bind) {
+                // using built 'func.bind()'. this is more effective way
+                
+                var bound = func.bind.apply(func, [this_arg].concat(args))
+                
+                return bound
+            } else {
+               // using emulation  of 'func.bind()'. this is less effective way
+                
+                var bound = function() {
+                    var func_args = args.concat(args_array(arguments))
+                    var func_res = func.apply(this_arg, func_args)
+                    
+                    return func_res
+                }
+                
+                return bound
+            }
+        },
+    }
+    
     function head_params_iterate(params_name, params_ns, iter) {
         for(var in_root_node = document.firstChild;
                 in_root_node;
@@ -305,31 +340,29 @@
     }
     
     GalleryLoader.prototype._items_json_request = function(load_items_json_param) {
-        var self = this
-        
         var url = load_items_json_param + '/items.json'
         var req = new XMLHttpRequest()
         
-        function transfer_complete() {
+        function transfer_complete(event) {
             if(!req.status || req.status == 200) {
                 var items_json = JSON.parse(req.responseText)
                 
-                self._loaded_items_json[load_items_json_param] = items_json
-                ++self._loaded_items_json_size
+                this._loaded_items_json[load_items_json_param] = items_json
+                ++this._loaded_items_json_size
                 
-                if(self._loaded_items_json_size == self._params.load_items_json.length) {
-                    self._run_complete()
+                if(this._loaded_items_json_size == this._params.load_items_json.length) {
+                    this._run_complete()
                 }
             } else {
                 debug_log('Transfer Failed Status: ' + url + ': ' + req.status)
             }
         }
         req.addEventListener(
-            'load', function(event) { transfer_complete() }, false)
+                'load', func_tools.func_bind(transfer_complete, this), false)
         req.addEventListener(
-            'error', function(event) { debug_log('Transfer Failed: ' + url) }, false)
+                'error', function(event) { debug_log('Transfer Failed: ' + url) }, false)
         req.addEventListener(
-            'abort', function(event) { debug_log('Transfer Canceled: ' + url) }, false)
+                'abort', function(event) { debug_log('Transfer Canceled: ' + url) }, false)
         req.open('GET', url)
         req.send()
     }
