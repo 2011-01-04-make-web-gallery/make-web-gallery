@@ -1,4 +1,6 @@
 (function() {
+    'use strict'
+    
     var html_ns = 'http://www.w3.org/1999/xhtml'
     
     function debug_log(value) {
@@ -90,7 +92,7 @@
         var icons = document.createElementNS(html_ns, 'html:div')
         function create_icon(item) {
             function on_click() {
-                preview_window = window.open(item.img, '_blank')
+                var preview_window = window.open(item.img, '_blank')
                 
                 if(self._last_preview_window) {
                     try {
@@ -366,7 +368,7 @@
                     load_items_json: [],
                 }
                 
-                for(param_node = params_node.firstChild;
+                for(var param_node = params_node.firstChild;
                         param_node;
                         param_node = param_node.nextSibling) {
                     if(param_node.localName == 'load_items_json' &&
