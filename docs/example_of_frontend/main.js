@@ -115,8 +115,6 @@
     }
     
     Gallery.prototype._create_gallery_page = function(begin, end) {
-        var self = this
-        
         var text = document.createElementNS(html_ns, 'html:h2')
         text.appendChild(
             document.createTextNode(
@@ -126,16 +124,16 @@
         
         var icons = document.createElementNS(html_ns, 'html:div')
         function create_icon(item) {
-            function on_click() {
+            function on_click(event) {
                 var preview_window = window.open(item.img, '_blank')
                 
-                if(self._last_preview_window) {
+                if(this._last_preview_window) {
                     try {
-                        self._last_preview_window.close()
+                        this._last_preview_window.close()
                     } catch(e) {}
                 }
                 
-                self._last_preview_window = preview_window
+                this._last_preview_window = preview_window
             }
             
             var img = document.createElementNS(html_ns, 'html:img')
@@ -145,7 +143,7 @@
             img.src = item.img
             img.title = img_name
             img.className = 'GalleryIcon'
-            img.addEventListener('click', function(event) { on_click() }, false)
+            img.addEventListener('click', func_tools.func_bind(on_click, this), false)
             
             return img
         }
@@ -154,7 +152,7 @@
             var item = this._items[i]
             
             if(item) {
-                var icon = create_icon(item)
+                var icon = create_icon.call(this, item)
                 
                 icons.appendChild(icon)
                 icons.appendChild(document.createTextNode(' '))
@@ -179,8 +177,6 @@
     }
     
     Gallery.prototype._create_page_menu = function() {
-        var self = this
-        
         var text_panel = document.createElementNS(html_ns, 'html:div')
         text_panel.appendChild(
             document.createTextNode('Страницы:')
@@ -192,15 +188,20 @@
         function create_button(begin, end) {
             var button = document.createElementNS(html_ns, 'html:input')
             button.type = 'button'
-            button.value = '[ ' + self._get_real_item_id(begin) + ' : ... ]'
-            button.addEventListener('click', function(event) { self._switch_gallery_page(begin, end) }, false)
+            button.value = '[ ' + this._get_real_item_id(begin) + ' : ... ]'
+            button.addEventListener(
+                    'click',
+                    func_tools.func_bind(function(event) {
+                        this._switch_gallery_page(begin, end)
+                    }, this),
+                    false)
             
             return button
         }
         
         for(var begin = 0; begin < this._items.length; begin += this._page_len) {
             var end = begin + this._page_len
-            var button = create_button(begin, end)
+            var button = create_button.call(this, begin, end)
             
             buttons_panel.appendChild(button)
             buttons_panel.appendChild(document.createTextNode(' '))
@@ -210,40 +211,40 @@
         
         var left_button = document.createElementNS(html_ns, 'html:input')
         
-        function on_left_click() {
-            var begin = self._sel_page_begin - self._page_len
+        function on_left_click(event) {
+            var begin = this._sel_page_begin - this._page_len
             
             if(begin < 0) {
                 begin = 0
             }
             
-            var end = begin + self._page_len
+            var end = begin + this._page_len
             
-            self._switch_gallery_page(begin, end)
+            this._switch_gallery_page(begin, end)
         }
         
         left_button.type = 'button'
         left_button.value = '<< Влево'
-        left_button.addEventListener('click', function(event) { on_left_click() }, false)
+        left_button.addEventListener('click', func_tools.func_bind(on_left_click, this), false)
         
         var right_button = document.createElementNS(html_ns, 'html:input')
         
-        function on_right_click() {
-            var begin = self._sel_page_begin + self._page_len
-            var end = begin + self._page_len
+        function on_right_click(event) {
+            var begin = this._sel_page_begin + this._page_len
+            var end = begin + this._page_len
             
-            if(self._items[begin]) {
-                self._switch_gallery_page(begin, end)
+            if(this._items[begin]) {
+                this._switch_gallery_page(begin, end)
             }
         }
         
         right_button.type = 'button'
         right_button.value = 'Вправо >>'
-        right_button.addEventListener('click', function(event) { on_right_click() }, false)
+        right_button.addEventListener('click', func_tools.func_bind(on_right_click, this), false)
         
         var show_all_button = document.createElementNS(html_ns, 'html:input')
         
-        function on_show_all_click() {
+        function on_show_all_click(event) {
             if(buttons_panel.style.display == 'none') {
                 buttons_panel.style.display = 'block'
             } else {
@@ -253,7 +254,7 @@
         
         show_all_button.type = 'button'
         show_all_button.value = 'Показать/Скрыть все страницы'
-        show_all_button.addEventListener('click', function(event) { on_show_all_click() }, false)
+        show_all_button.addEventListener('click', func_tools.func_bind(on_show_all_click, this), false)
         
         shortcut_buttons_panel.appendChild(left_button)
         shortcut_buttons_panel.appendChild(document.createTextNode(' '))
