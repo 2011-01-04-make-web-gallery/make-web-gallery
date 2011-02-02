@@ -27,8 +27,7 @@
             return args
         },
         func_bind: function(func, this_arg) {
-            var args_array = this.args_array
-            var args = args_array(arguments).slice(2)
+            var args = this.args_array(arguments).slice(2)
             
             if(func.bind) {
                 // using built 'func.bind()'. this is more effective way
@@ -37,10 +36,12 @@
                 
                 return bound
             } else {
-               // using emulation  of 'func.bind()'. this is less effective way
+                // using emulation  of 'func.bind()'. this is less effective way
+                
+                var self_module = this
                 
                 var bound = function() {
-                    var func_args = args.concat(args_array(arguments))
+                    var func_args = args.concat(self_module.args_array(arguments))
                     var func_res = func.apply(this_arg, func_args)
                     
                     return func_res
@@ -55,17 +56,20 @@
         for(var in_root_node = document.firstChild;
                 in_root_node;
                 in_root_node = in_root_node.nextSibling) {
-            if(in_root_node.localName == 'html' &&
+            if(in_root_node.nodeType == Node.ELEMENT_NODE &&
+                    in_root_node.localName == 'html' &&
                     in_root_node.namespaceURI == html_ns) {
                 for(var in_html_node = in_root_node.firstChild;
                         in_html_node;
                         in_html_node = in_html_node.nextSibling) {
-                    if(in_html_node.localName == 'head' &&
+                    if(in_html_node.nodeType == Node.ELEMENT_NODE &&
+                            in_html_node.localName == 'head' &&
                             in_html_node.namespaceURI == html_ns) {
                         for(var in_head_node = in_html_node.firstChild;
                                 in_head_node;
                                 in_head_node = in_head_node.nextSibling) {
-                            if(in_head_node.localName == params_name &&
+                            if(in_head_node.nodeType == Node.ELEMENT_NODE &&
+                                    in_head_node.localName == params_name &&
                                     in_head_node.namespaceURI == params_ns) {
                                 iter(in_head_node)
                             }
